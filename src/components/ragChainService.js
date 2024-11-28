@@ -6,7 +6,6 @@ import { GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI } from "@langchain
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
-
 // Create a singleton service
 class RagChainService {
   constructor() {
@@ -30,12 +29,12 @@ class RagChainService {
 
   async initializeRagChain(url) {
     try {
+      console.log(url);
       // Step 1: Load documents
-      const loader = new CheerioWebBaseLoader(url, {
-        selector: ".post-content, .post-title, .post-header",
-      });
+      
+      const loader = new CheerioWebBaseLoader(url);
       const docs = await loader.load();
-
+      console.log({docs})
       // Step 2: Split documents
       const splits = await this.textSplitter.splitDocuments(docs);
 
@@ -70,7 +69,7 @@ class RagChainService {
         retriever,
         combineDocsChain: questionAnswerChain,
       });
-
+      console.log("The document is retrieved!")
       return true;
     } catch (error) {
       console.error("Error initializing RAG chain:", error);

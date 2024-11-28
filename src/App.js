@@ -36,9 +36,8 @@ const App = () => {
   return (
     <>
     <UrlProvider>
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8">
-      <div className="flex flex-col lg:flex-row w-full max-w-6xl gap-20">
-        <div className="flex flex-col flex-1 w-full max-w-lg h-[80vh] bg-[#f5f8fb] rounded-xl shadow-lg overflow-hidden font-mono">
+    <div className="flex flex-col items-center justify-center bg-black p-8">
+        <div className="flex flex-col flex-1 w-full max-w-5xl bg-primary rounded-xl shadow-lg overflow-hidden font-mono">
           {/* Header */}
           <Header />
           {/* Scrollable Messages Section */}
@@ -46,7 +45,7 @@ const App = () => {
             <Messages messages={messages} />
           </div>
           {/* Fixed Input Section */}
-          <div className="p-4 bg-white border-t border-gray-200">
+          <div className="p-4 bg-background border-t border-gray-200">
             <Input onSend={send} selectedModel={selectedModel} setSelectedModel={setSelectedModel}/>
           </div>
           {/* Column 2: Chat Container */}
@@ -56,7 +55,6 @@ const App = () => {
           <URL />
           <DisplayUrl/>
         </div>
-      </div>
     </div>
     </UrlProvider>
     </>

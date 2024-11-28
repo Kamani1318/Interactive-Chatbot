@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { FaRobot } from "react-icons/fa";
-import { RiRobot2Fill } from "react-icons/ri";
-export default function Input({ onSend,selectedModel,setSelectedModel }) {
+
+export default function Input({ onSend, selectedModel, setSelectedModel }) {
   const [text, setText] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -12,14 +11,11 @@ export default function Input({ onSend,selectedModel,setSelectedModel }) {
   const handleSend = (e) => {
     e.preventDefault();
     if (text.trim()) {
-        if (selectedModel==="Custom Model")
-        {
-            onSend(text);
-        }
-        else if (selectedModel === "Generic Model")
-        {
-            onSend(text);
-        }
+      if (selectedModel === "Custom Model") {
+        onSend(text);
+      } else if (selectedModel === "Generic Model") {
+        onSend(text);
+      }
       setText("");
     }
   };
@@ -27,6 +23,10 @@ export default function Input({ onSend,selectedModel,setSelectedModel }) {
   const handleModelSelect = (model) => {
     setSelectedModel(model);
     setIsDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -37,45 +37,44 @@ export default function Input({ onSend,selectedModel,setSelectedModel }) {
         onChange={handleInputChange}
         value={text}
         placeholder="Enter your message"
-        className="w-full font-mono text-base border-0 border-t border-gray-200 outline-none shadow-none p-3 pr-32 rounded-lg focus:ring-2 focus:ring-blue-300"
+        className="bg-background w-full font-mono border-0 border-t border-border outline-none shadow-none p-3 pr-32 rounded-lg focus:ring-2 focus:ring-white"
+        style={{ fontSize: "13px", color: "white" }}
       />
 
-      {/* Dropdown Button with Popup on Hover */}
-      <div
-        className="relative"
-        onMouseEnter={() => setIsDropdownOpen(true)}
-        onMouseLeave={() => setIsDropdownOpen(false)}
-      >
+      {/* Dropdown Button */}
+      <div className="relative">
         <button
           type="button"
-          className="text-black hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center absolute right-12 top-1/2 transform -translate-y-1/2"
+          onClick={toggleDropdown}
+          className="text-white hover:bg-green focus:ring-2 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center absolute right-12 top-1/2 transform -translate-y-1/2 whitespace-nowrap"
+          style={{ fontSize: "11px" }}
         >
           {selectedModel}
           <svg
-            className="w-2.5  h-2.5 ml-2"
+            className="w-2.5 h-2.5 ml-2"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 10 6"
-            >
+          >
             <path
-                stroke="black"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5l4-4 4 4"
+              stroke="white"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 5l4-4 4 4"
             />
-            </svg>
+          </svg>
         </button>
 
         {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className="absolute right-[10px] bottom-[25px] z-100 bg-gray-200 divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-100">
-            <ul className="py-1 text-sm text-black dark:text-black">
+          <div className="absolute right-[10px] bottom-[25px] z-100 bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-100">
+            <ul className="py-1 text-xs text-black dark:text-black">
               <li>
                 <button
                   onClick={() => handleModelSelect("Generic Model")}
-                  className="block w-full text-left px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-200 dark:hover:text-black"
+                  className="block w-full text-left px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-200 dark:hover:text-black whitespace-nowrap"
                 >
                   Generic Model
                 </button>
@@ -83,7 +82,7 @@ export default function Input({ onSend,selectedModel,setSelectedModel }) {
               <li>
                 <button
                   onClick={() => handleModelSelect("Custom Model")}
-                  className="block w-full text-left px-4 hover:bg-gray-200 dark:hover:bg-gray-200 dark:hover:text-black"
+                  className="block w-full text-left px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-200 dark:hover:text-black whitespace-nowrap"
                 >
                   Custom Model
                 </button>
