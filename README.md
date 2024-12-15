@@ -1,70 +1,193 @@
-# Getting Started with Create React App
+# Chatbot Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This documentation provides details about an interactive chatbot built using **LangChain.js** and **React.js**, powered by the **Gemini-1.5** Large Language Model (LLM). The chatbot supports two modes:
 
-## Available Scripts
+1. **Generic Mode**: Standard chatbot functionality using the base Gemini-1.5 model.
+2. **Custom Mode**: Enables customization by training the chatbot with specific URLs, allowing it to answer questions based on the provided content.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Generic Mode
+- Operates as a typical chatbot.
+- Leverages the advanced natural language understanding and generation capabilities of Gemini-1.5.
+- Suitable for general-purpose interactions.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Custom Mode
+- Accepts URLs as input for training.
+- Processes the content of the provided URLs and uses it to answer user queries.
+- Ideal for domain-specific or context-aware interactions.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technology Stack
 
-### `npm run build`
+1. **Frontend Framework**: React.js
+   - Used to build the user interface.
+   - Manages the interactive messaging interface for the chatbot.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Backend/Logic Layer**: LangChain.js
+   - Facilitates seamless integration with the Gemini-1.5 LLM.
+   - Handles the logic for switching between Generic and Custom modes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **LLM**: Gemini-1.5
+   - Provides the core natural language processing capabilities.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Setup Instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
+- Node.js installed on your system.
+- A valid API key for accessing the Gemini-1.5 LLM.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/chatbot
+   cd chatbot
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Configure environment variables:
+   Create a `.env` file in the project root and add your API key:
+   ```plaintext
+   GEMINI_API_KEY=your-api-key
+   ```
 
-## Learn More
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
 
-### Code Splitting
+### Generic Mode
+1. Launch the chatbot interface.
+2. Start typing your questions or messages in the input box.
+3. The chatbot will respond using the standard Gemini-1.5 LLM capabilities.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Custom Mode
+1. Enter URLs to train the chatbot on specific content.
+2. After training is complete, ask questions related to the provided URLs.
+3. The chatbot will respond based on the processed content of the URLs.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Code Overview
 
-### Making a Progressive Web App
+### Core Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. **Chat Interface**
+   - Built using React.js components.
+   - Includes an input box, message display area, and mode selection.
 
-### Advanced Configuration
+2. **LangChain.js Integration**
+   - Manages interactions with the Gemini-1.5 API.
+   - Implements the logic for switching between Generic and Custom modes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. **Custom URL Processing**
+   - Uses LangChain.js tools to fetch and preprocess content from the provided URLs.
+   - Creates embeddings for context-aware responses.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## API Reference
 
-### `npm run build` fails to minify
+### Generic Mode
+- **Endpoint**: `/generate`
+- **Method**: POST
+- **Payload**:
+  ```json
+  {
+    "message": "Your input message"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "response": "Chatbot's reply"
+  }
+  ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Custom Mode
+- **Endpoint**: `/train`
+- **Method**: POST
+- **Payload**:
+  ```json
+  {
+    "urls": ["https://example.com/content"]
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "status": "Training completed",
+    "trained_on": ["https://example.com/content"]
+  }
+  ```
+
+- **Endpoint**: `/custom-generate`
+- **Method**: POST
+- **Payload**:
+  ```json
+  {
+    "message": "Your query",
+    "context": "custom"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "response": "Chatbot's reply based on trained content"
+  }
+  ```
+
+---
+
+## Example Interactions
+
+### Generic Mode
+- **Input**: "What is the capital of France?"
+- **Output**: "The capital of France is Paris."
+
+### Custom Mode
+1. Train the chatbot:
+   ```json
+   {
+     "urls": ["https://example.com/science"]
+   }
+   ```
+2. Ask a question based on the URL:
+   - **Input**: "What is the main topic discussed in the article?"
+   - **Output**: "The article discusses recent advancements in quantum physics."
+
+---
+
+## Future Enhancements
+
+1. **Support for Additional Input Types**
+   - PDFs, Word documents, etc.
+
+2. **Advanced Training Capabilities**
+   - Allow fine-tuning on larger datasets.
+
+3. **Improved UI/UX**
+   - Add real-time feedback for training progress.
+
+4. **Multilingual Support**
+   - Extend capabilities to multiple languages.
+
+---
+
+## Support
+For any issues or feature requests, please open an issue on [GitHub](https://github.com/your-repo/chatbot/issues) or contact us at support@example.com.
+
