@@ -55,13 +55,7 @@ This documentation provides details about an interactive chatbot built using **L
    npm install
    ```
 
-3. Configure environment variables:
-   Create a `.env` file in the project root and add your API key:
-   ```plaintext
-   GEMINI_API_KEY=your-api-key
-   ```
-
-4. Start the development server:
+3. Start the development server:
    ```bash
    npm start
    ```
